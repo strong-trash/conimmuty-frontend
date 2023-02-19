@@ -1,5 +1,5 @@
 <template>
-	<div>MAIN</div>
+	<div>MAI N</div>
 </template>
 
 <script setup></script>
