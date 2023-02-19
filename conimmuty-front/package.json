@@ -2,7 +2,7 @@
   "name": "conimmuty-front",
   "version": "0.0.0",
   "private": true,
-  "homepage" : "https://strong-trash.github.io/conimmuty-frontend/",
+  "homepage": "https://strong-trash.github.io/conimmuty-frontend/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -27,6 +27,7 @@
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
     "prettier": "^2.7.1",
+    "sass": "^1.58.3",
     "vite": "^4.0.0"
   }
 }
