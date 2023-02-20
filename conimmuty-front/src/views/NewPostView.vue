@@ -10,6 +10,7 @@
 			<label>용내</label>
 			<textarea v-model="content" class="form-control" />
 
+			<hr />
 			<BaseButton
 				class="outline-red wide"
 				text="소취"
