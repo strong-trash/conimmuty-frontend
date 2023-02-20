@@ -2,10 +2,10 @@
 	<div class="post-card">
 		<h2>{{ post.title }}</h2>
 		<p>{{ post.content }}</p>
-		<span @click="joa">👍 {{ post.likeCnt }}</span>
-		<span @click="sibal">👎 {{ post.dislikeCnt }}</span>
+		<span class="btn-clickable" @click="joa">👍 {{ post.likeCnt }}</span>
+		<span class="btn-clickable" @click="siro">👎 {{ post.dislikeCnt }}</span>
 		<span>🗨 {{ post.commentCnt }}</span>
-		<span>{{ post.createdAt }}</span>
+		<span>{{ post.createdAt.split('T').join(' ') }}</span>
 	</div>
 </template>
 
@@ -19,19 +19,17 @@ const emits = defineEmits(['like', 'dislike']);
 
 const joa = async () => {
 	try {
-		const res = await like(props.post.pid);
+		await like(props.post.pid);
 		emits('like');
-		console.log(res);
 	} catch (err) {
 		alert(err);
 	}
 };
 
-const sibal = async () => {
+const siro = async () => {
 	try {
-		const res = await dislike(props.post.pid);
+		await dislike(props.post.pid);
 		emits('dislike');
-		console.log(res);
 	} catch (err) {
 		alert(err);
 	}
@@ -52,5 +50,27 @@ const sibal = async () => {
 	background-color: rgb(219, 226, 239);
 	border-radius: 8px;
 	font-size: 12px;
+
+	transition: 0.2s all;
+}
+
+.postcard-clickable {
+	cursor: pointer;
+	transition: 0.2s all;
+}
+.postcard-clickable:hover {
+	transform: scale(1.1);
+	border: 4px solid rgb(63, 114, 175);
+}
+
+.btn-clickable {
+	cursor: pointer;
+}
+.btn-clickable:hover {
+	background-color: rgb(63, 114, 175);
+	color: rgb(219, 226, 239);
+}
+.btn-clickable:active {
+	background-color: rgb(17, 45, 78);
 }
 </style>

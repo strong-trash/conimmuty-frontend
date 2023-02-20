@@ -13,13 +13,18 @@
 				<button class="btn btn-outline-secondary" type="submit">기쓰</button>
 			</form>
 			<!-- <Reply></Reply> -->
-			<div style="padding: 4px">
+			<div v-if="comments.length > 0" style="padding: 4px">
 				<ReplyItem
 					v-for="comment in comments"
 					:key="comment.cid"
 					:body="comment.body"
-					:created-at="comment.createdAt"
+					:created-at="comment.createdAt.split('T').join(' ')"
 				></ReplyItem>
+			</div>
+			<div v-else>
+				<p style="font-size: 24px; font-weight: light; text-align: center">
+					직아 글댓이 습없다니
+				</p>
 			</div>
 		</div>
 	</div>
@@ -58,6 +63,7 @@ const submitNewComment = async () => {
 		};
 		await createComment(data);
 		fetchData();
+		newComment.value = '';
 	} catch (err) {
 		alert('엥 뭔가 잘못된것이와요 : ', err);
 	}
@@ -69,6 +75,9 @@ const submitNewComment = async () => {
 	margin: 8px;
 }
 
+.reply-container > form > input {
+	border: 2px solid rgb(219, 226, 239);
+}
 .reply-container > form > button {
 	background-color: rgb(63, 114, 175);
 	color: rgb(249, 247, 247);

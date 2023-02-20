@@ -1,15 +1,11 @@
 <template>
 	<div class="main-view">
 		<PostCard
-			v-for="post in posts"
+			v-for="post in posts.slice().reverse()"
 			:key="post.pid"
 			:post="post"
-			@click="
-				() => {
-					$router.push({ name: 'Detail', params: { id: post.pid } });
-					console.log(post);
-				}
-			"
+			class="postcard-clickable"
+			@click="() => $router.push({ name: 'Detail', params: { id: post.pid } })"
 			@like="fetchPosts"
 			@dislike="fetchPosts"
 		></PostCard>
@@ -35,5 +31,13 @@ fetchPosts();
 	width: 60%;
 	margin-left: auto;
 	margin-right: auto;
+
+	word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+	.main-view {
+		width: 90%;
+	}
 }
 </style>

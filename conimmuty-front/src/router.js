@@ -21,6 +21,10 @@ const routes = [
 		path: '/newpost',
 		name: 'NewPost',
 		component: NewPostView,
+		props: route => ({
+			title: route.query.title ? route.query.title : '',
+			content: route.query.content ? route.query.content : '',
+		}),
 	},
 	{
 		path: '/oldpost',

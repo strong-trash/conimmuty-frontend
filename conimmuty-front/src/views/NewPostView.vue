@@ -25,16 +25,32 @@
 </template>
 
 <script setup>
+import { ref, onBeforeUnmount, watch } from 'vue';
+import { useRouter } from 'vue-router';
+
 import BaseButton from '@/components/atoms/BaseButton.vue';
 import { createPost } from '@/assets/apis/request.js';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { yameStorage } from '@/assets/apis/yameStorage.js';
+
+const props = defineProps({
+	title: { type: String, required: false, default: '' },
+	content: { type: String, required: false, default: '' },
+});
 
 const router = useRouter();
 
-const title = ref('');
-const content = ref('');
+const title = ref(props.title);
+const content = ref(props.content);
 
+// 쿼리 안들어오면 input 비우기
+watch(props, () => {
+	if (!props.title && !props.content) {
+		title.value = '';
+		content.value = '';
+	}
+});
+
+// 새로운 글 서버로 제출
 const write = async () => {
 	try {
 		const data = {
@@ -48,6 +64,32 @@ const write = async () => {
 		console.error(err);
 	}
 };
+
+// 자동저장
+const storage = new yameStorage();
+const insertNewOldPost = () => {
+	if (!title.value && !content.value) {
+		return;
+	}
+
+	const date = new Date();
+	const currentPost = {
+		title: title.value,
+		content: content.value,
+		createdAt: date.toISOString(),
+	};
+
+	storage.set([currentPost, ...storage.get()]);
+};
+const intervalID = setInterval(() => {
+	insertNewOldPost();
+	console.log('interval', storage.get());
+}, 30000);
+onBeforeUnmount(() => {
+	clearInterval(intervalID);
+	insertNewOldPost();
+	console.log('unmounted');
+});
 </script>
 
 <style lang="scss" scoped>
