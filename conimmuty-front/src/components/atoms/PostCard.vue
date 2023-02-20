@@ -2,17 +2,40 @@
 	<div class="post-card">
 		<h2>{{ post.title }}</h2>
 		<p>{{ post.content }}</p>
-		<span class="cnt">👍 {{ post.likeCnt }}</span>
-		<span class="cnt">👎 {{ post.dislikeCnt }}</span>
-		<span class="cnt">🗨 {{ post.commentCnt }}</span>
-		<span class="date">{{ post.createdAt }}</span>
+		<span @click="joa">👍 {{ post.likeCnt }}</span>
+		<span @click="sibal">👎 {{ post.dislikeCnt }}</span>
+		<span>🗨 {{ post.commentCnt }}</span>
+		<span>{{ post.createdAt }}</span>
 	</div>
 </template>
 
 <script setup>
-defineProps({
+import { like, dislike } from '@/assets/apis/request.js';
+
+const props = defineProps({
 	post: { type: Object },
 });
+const emits = defineEmits(['like', 'dislike']);
+
+const joa = async () => {
+	try {
+		const res = await like(props.post.pid);
+		emits('like');
+		console.log(res);
+	} catch (err) {
+		alert(err);
+	}
+};
+
+const sibal = async () => {
+	try {
+		const res = await dislike(props.post.pid);
+		emits('dislike');
+		console.log(res);
+	} catch (err) {
+		alert(err);
+	}
+};
 </script>
 
 <style lang="scss" scoped>

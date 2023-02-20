@@ -11,5 +11,5 @@ export default defineConfig({
 			'@': fileURLToPath(new URL('./src', import.meta.url)),
 		},
 	},
-	base: '/conimmuty-frontend/',
+	base: '/conimmuty-frontend/', // github pages의 origin에 붙일 경로
 });

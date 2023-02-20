@@ -1,6 +1,18 @@
 <template>
 	<div class="main-view">
-		<PostCard v-for="post in posts" :key="post.id" :post="post"></PostCard>
+		<PostCard
+			v-for="post in posts"
+			:key="post.pid"
+			:post="post"
+			@click="
+				() => {
+					$router.push({ name: 'Detail', params: { id: post.pid } });
+					console.log(post);
+				}
+			"
+			@like="fetchPosts"
+			@dislike="fetchPosts"
+		></PostCard>
 	</div>
 </template>
 
@@ -13,7 +25,6 @@ const posts = ref([]);
 
 const fetchPosts = async () => {
 	const { data } = await getAllPosts();
-	console.log(data);
 	posts.value = data;
 };
 fetchPosts();

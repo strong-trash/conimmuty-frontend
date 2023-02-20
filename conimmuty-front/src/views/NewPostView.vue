@@ -4,20 +4,20 @@
 		<hr />
 
 		<form @submit.prevent="">
-			<label>제목</label>
+			<label>목제</label>
 			<input v-model="title" type="text" class="form-control" />
 
-			<label>내용</label>
+			<label>용내</label>
 			<textarea v-model="content" class="form-control" />
 
 			<BaseButton
 				class="outline-red wide"
-				text="취소"
+				text="소취"
 				@click="() => $router.go(-1)"
 			></BaseButton>
 			<BaseButton
 				class="fill-blue wide"
-				text="쓰기"
+				text="기쓰"
 				@click="write"
 			></BaseButton>
 		</form>
@@ -41,8 +41,7 @@ const write = async () => {
 			title: title.value,
 			content: content.value,
 		};
-		const res = await createPost(data);
-		console.log(res);
+		await createPost(data);
 		router.push({ name: 'Main' });
 	} catch (err) {
 		alert('err');

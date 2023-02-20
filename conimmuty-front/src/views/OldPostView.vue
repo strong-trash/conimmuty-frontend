@@ -1,5 +1,8 @@
 <template>
-	<div>old</div>
+	<div>
+		<h2>헌기글쓰</h2>
+		<hr />
+	</div>
 </template>
 
 <script>
@@ -10,4 +13,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+h2 {
+	text-align: center;
+	padding: 8px;
+}
+</style>

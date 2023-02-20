@@ -1,17 +1,17 @@
 <template>
 	<nav>
 		<RouterLink to="/">
-			<h1>🤯 코니뮤티</h1>
+			<h1>🤯 커니뮤티</h1>
 		</RouterLink>
 		<BaseButton
 			style="margin-left: auto"
 			class="outline-white"
-			text="새글쓰기"
+			text="새쓰글기"
 			@click="$router.push({ name: 'NewPost' })"
 		></BaseButton>
 		<BaseButton
 			class="outline-white"
-			text="헌글쓰기"
+			text="헌기글쓰"
 			@click="$router.push({ name: 'OldPost' })"
 		></BaseButton>
 	</nav>

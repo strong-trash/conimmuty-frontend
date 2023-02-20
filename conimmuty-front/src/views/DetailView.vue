@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<PostCard :post="post"></PostCard>
+		<PostCard :post="post" @like="fetchData" @dislike="fetchData"></PostCard>
 
 		<div class="reply-container">
 			<form @submit.prevent="submitNewComment" class="input-group mb-3">
@@ -26,50 +26,42 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+
 import PostCard from '../components/atoms/PostCard.vue';
 import ReplyItem from '@/components/atoms/ReplyItem.vue';
-import { ref, watch } from 'vue';
 import { getPost, getComments, createComment } from '@/assets/apis/request.js';
 
-const props = defineProps({
-	id: {
-		type: String,
-		required: true,
-	},
-});
+const route = useRoute();
+const id = route.params.id;
 
-const newComment = ref('');
-
+// pid에 해당하는 1개의 글, 그리고 글에 딸린 댓글들을 패치하는 로직
 const post = ref({});
 const comments = ref([]);
 
 const fetchData = async () => {
-	const postRes = await getPost(props.id);
-	const commentsRes = await getComments(props.id);
-
-	console.log(post);
-	console.log(comments);
-
+	const postRes = await getPost(id);
+	const commentsRes = await getComments(id);
 	post.value = postRes.data;
 	comments.value = commentsRes.data;
 };
 fetchData();
 
+// 새로운 댓글 등록 로직
+const newComment = ref('');
 const submitNewComment = async () => {
 	try {
 		const data = {
-			pid: props.id,
+			pid: id,
 			body: newComment.value,
 		};
-		console.log(data);
 		await createComment(data);
 		fetchData();
 	} catch (err) {
 		alert('엥 뭔가 잘못된것이와요 : ', err);
 	}
 };
-
-watch(props.id, () => fetchData());
 </script>
 
 <style lang="scss" scoped>
