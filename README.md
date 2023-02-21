@@ -1,6 +1,7 @@
 # 🤯 커니뮤티 : 프론트엔드
 
 쓰레기톡 주관 `<제1회 밤새서 쓸모없는 프로그램 만들기 행사>`의 산출물, **커니뮤티**의 프론트엔드 프로그램입니다.
+* 웹사이트 바로가기 : [https://conimmuty.strongtrash.com/](https://conimmuty.strongtrash.com/)
 * 백엔드 프로그램은 [riroan](https://github.com/riroan)이 만들었고, 레포지토리는 [여기](https://github.com/strong-trash/conimmuty-backend)있습니다.
 
 **커니뮤티**는 최첨단 보안기술 '유저정보 저장 안하기'를 적용한 뒤틀리고 왜곡된 소통을 지향하는 완벽한 익명 커뮤니티입니다.

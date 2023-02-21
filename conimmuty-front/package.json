@@ -2,7 +2,7 @@
   "name": "conimmuty-front",
   "version": "0.0.0",
   "private": true,
-  "homepage": "https://strong-trash.github.io/conimmuty-frontend/",
+  "homepage": "https://conimmuty.strongtrash.com/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
