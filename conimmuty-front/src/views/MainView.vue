@@ -4,6 +4,7 @@
 			v-for="post in posts.slice().reverse()"
 			:key="post.pid"
 			:post="post"
+			:mode="'preview'"
 			class="postcard-clickable"
 			@click="() => $router.push({ name: 'Detail', params: { id: post.pid } })"
 			@like="fetchPosts"

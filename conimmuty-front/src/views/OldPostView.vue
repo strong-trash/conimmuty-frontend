@@ -3,6 +3,14 @@
 		<h2>헌기글쓰</h2>
 		<hr />
 
+		<div style="text-align: right">
+			<BaseButton
+				class="fill-blue wide"
+				text="든모 헌 글 우지기"
+				@click="doubleThanos"
+			></BaseButton>
+		</div>
+
 		<div v-if="oldPosts.length > 0" class="oldpost-container">
 			<div
 				class="oldpost-item"
@@ -26,8 +34,9 @@
 
 <script setup>
 import { ref } from 'vue';
-import { yameStorage } from '@/assets/apis/yameStorage.js';
 import { useRouter } from 'vue-router';
+import { yameStorage } from '@/assets/apis/yameStorage.js';
+import BaseButton from '@/components/atoms/BaseButton.vue';
 
 const router = useRouter();
 
@@ -37,6 +46,16 @@ console.log(oldPosts.value);
 
 const write = post => {
 	router.push({ name: 'NewPost', query: { ...post } });
+};
+
+const doubleThanos = () => {
+	// 모든 헌 글을 지웁니다.
+	if (confirm('이거 모든 헌 글 지우기인데 진짜 지우실거에요?') === false) {
+		return;
+	}
+
+	storage.set([]);
+	oldPosts.value = storage.get();
 };
 </script>
 

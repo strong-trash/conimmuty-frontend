@@ -1,5 +1,5 @@
 <template>
-	<div class="post-card">
+	<div class="post-card" :class="{ preview: props.mode === 'preview' }">
 		<h2>{{ post.title }}</h2>
 		<p>{{ post.content }}</p>
 		<span class="btn-clickable" @click="joa">👍 {{ post.likeCnt }}</span>
@@ -14,10 +14,12 @@ import { like, dislike } from '@/assets/apis/request.js';
 
 const props = defineProps({
 	post: { type: Object },
+	mode: { type: String, default: 'detail' }, // 'preview', 'detail'
 });
 const emits = defineEmits(['like', 'dislike']);
 
 const joa = async () => {
+	// 따봉 (좋아요)
 	try {
 		await like(props.post.pid);
 		emits('like');
@@ -27,6 +29,7 @@ const joa = async () => {
 };
 
 const siro = async () => {
+	// 안따봉 (싫어요)
 	try {
 		await dislike(props.post.pid);
 		emits('dislike');
@@ -44,12 +47,23 @@ const siro = async () => {
 	margin: 8px;
 }
 
+.preview {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 .post-card > span {
 	margin: 4px;
 	padding: 4px;
 	background-color: rgb(219, 226, 239);
 	border-radius: 8px;
 	font-size: 12px;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 
 	transition: 0.2s all;
 }
