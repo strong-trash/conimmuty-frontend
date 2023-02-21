@@ -57,6 +57,11 @@ fetchData();
 const newComment = ref('');
 const submitNewComment = async () => {
 	try {
+		if (!newComment.value) {
+			alert('글댓 내을용 입주력해요세');
+			return;
+		}
+
 		const data = {
 			pid: id,
 			body: newComment.value,
@@ -65,7 +70,10 @@ const submitNewComment = async () => {
 		fetchData();
 		newComment.value = '';
 	} catch (err) {
-		alert('엥 뭔가 잘못된것이와요 : ', err);
+		alert(
+			'무언가 이상해요. 글자수가 너무 길어서 그럴 수도 있어요. 문제가 지속되면 김명기 또는 이원진을 호출해주시와요 하와와★ : ' +
+				err,
+		);
 	}
 };
 </script>
