@@ -54,6 +54,11 @@ watch(props, () => {
 // 새로운 글 서버로 제출
 const write = async () => {
 	try {
+		if (!title.value || !content.value) {
+			alert('제과목 용내를 입력주해세요');
+			return;
+		}
+
 		const data = {
 			title: title.value,
 			content: content.value,
@@ -61,7 +66,10 @@ const write = async () => {
 		await createPost(data);
 		router.push({ name: 'Main' });
 	} catch (err) {
-		alert('err');
+		alert(
+			'무언가 이상해요. 글자수가 너무 길어서 그럴 수도 있어요. 문제가 지속되면 김명기 또는 이원진을 호출해주시와요 하와와★ : ' +
+				err,
+		);
 		console.error(err);
 	}
 };
@@ -69,7 +77,7 @@ const write = async () => {
 // 자동저장
 const storage = new yameStorage();
 const insertNewOldPost = () => {
-	if (!title.value && !content.value) {
+	if (!title.value || !content.value) {
 		return;
 	}
 
@@ -84,12 +92,12 @@ const insertNewOldPost = () => {
 };
 const intervalID = setInterval(() => {
 	insertNewOldPost();
-	console.log('interval', storage.get());
+	// console.log('interval', storage.get());
 }, 30000);
 onBeforeUnmount(() => {
 	clearInterval(intervalID);
 	insertNewOldPost();
-	console.log('unmounted');
+	// console.log('unmounted');
 });
 </script>
 
