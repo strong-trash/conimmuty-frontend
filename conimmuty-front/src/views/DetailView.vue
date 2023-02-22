@@ -31,23 +31,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, watchEffect } from 'vue';
 
 import PostCard from '../components/atoms/PostCard.vue';
 import ReplyItem from '@/components/atoms/ReplyItem.vue';
 import { getPost, getComments, createComment } from '@/assets/apis/request.js';
 
-const route = useRoute();
-const id = route.params.id;
+const props = defineProps({
+	id: { type: String },
+});
 
 // pid에 해당하는 1개의 글, 그리고 글에 딸린 댓글들을 패치하는 로직
 const post = ref({});
 const comments = ref([]);
 
 const fetchData = async () => {
-	const postRes = await getPost(id);
-	const commentsRes = await getComments(id);
+	const postRes = await getPost(props.id);
+	const commentsRes = await getComments(props.id);
 	post.value = postRes.data;
 	comments.value = commentsRes.data;
 };
@@ -63,7 +63,7 @@ const submitNewComment = async () => {
 		}
 
 		const data = {
-			pid: id,
+			pid: props.id,
 			body: newComment.value,
 		};
 		await createComment(data);
@@ -76,6 +76,10 @@ const submitNewComment = async () => {
 		);
 	}
 };
+
+watchEffect(() => {
+	fetchData();
+});
 </script>
 
 <style lang="scss" scoped>

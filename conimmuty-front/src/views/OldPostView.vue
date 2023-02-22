@@ -42,7 +42,6 @@ const router = useRouter();
 
 const storage = new yameStorage();
 const oldPosts = ref(storage.get());
-console.log(oldPosts.value);
 
 const write = post => {
 	router.push({ name: 'NewPost', query: { ...post } });

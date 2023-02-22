@@ -92,12 +92,10 @@ const insertNewOldPost = () => {
 };
 const intervalID = setInterval(() => {
 	insertNewOldPost();
-	// console.log('interval', storage.get());
 }, 30000);
 onBeforeUnmount(() => {
 	clearInterval(intervalID);
 	insertNewOldPost();
-	// console.log('unmounted');
 });
 </script>
 
